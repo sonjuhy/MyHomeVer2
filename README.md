@@ -10,7 +10,6 @@
 
 ## 담당 직무
 
----
 
 - Front-End
 - Back-End
@@ -20,7 +19,6 @@
 
 ## 담당 업무
 
----
 
 - Project Structure Design
     - Back-End
@@ -95,7 +93,6 @@
 
 ## 성과
 
----
 
 - Improved Security And Reliability
 - Improved Scalability
@@ -103,7 +100,6 @@
 
 ## 링크
 
----
 
 - Spring Boot
     - link : [https://github.com/sonjuhy/MyHomeSpring](https://github.com/sonjuhy/MyHomeSpring)
@@ -118,7 +114,6 @@
 
 ## 개발 환경 & 기술 스택
 
----
 
 - IDE
     - Intelli J
@@ -155,13 +150,11 @@
 
 ## 구조도
 
----
 
 ![MyHome2 0_structure](https://github.com/sonjuhy/MyHomeVer2/assets/2987059/7ae25622-3b37-496d-8bbf-a47aaac0239e)
 
 ## 안드로이드 코드 리팩토링
 
----
 
 ### MVVM 패턴 적용
 
@@ -179,7 +172,6 @@
 
 ## 서비스 사진
 
----
 
 ## WEB
 
