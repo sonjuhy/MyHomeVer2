@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next build && touch out/.nojekyll && git add -f out/ && git commit -m 'deploy' && git subtree push --prefix out origin portfolio-pages"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -21,7 +22,11 @@
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "@reduxjs/toolkit": "^2.0.1",
+    "next-redux-wrapper": "^8.0.0",
+    "react-redux": "^9.1.0",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
