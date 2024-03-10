@@ -1,9 +1,12 @@
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
+import Timeline from "@mui/lab/Timeline";
+import TimelineItem from "@mui/lab/TimelineItem";
+import TimelineSeparator from "@mui/lab/TimelineSeparator";
+import TimelineConnector from "@mui/lab/TimelineConnector";
+import TimelineContent from "@mui/lab/TimelineContent";
+import TimelineDot from "@mui/lab/TimelineDot";
+import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
+
+import { Container, Paper, Typography, styled } from "@mui/material";
 
 /**
  * Content
@@ -17,7 +20,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
  *   1-2-3. add jwtFilter beforeSecurity filter [check permissioni to request account before business logic for performance, security]
  *   1-2-4. white list - thumbnail, streaming, swagger [for web, android -> jwt in url(not header) -> need to custom filter]
  *   1-2-5. apply customFilter for httpstataus (404, 401, 405 etc...) [for client dev]
- * 2. feature centralization 
+ * 2. feature centralization
  * (before : active on android, after : active on server. only call api on android)
  * (expanse service easily to other client(web etc...))
  *  2-1. sign in & up
@@ -49,45 +52,190 @@ import TimelineDot from '@mui/lab/TimelineDot';
  *  3-4. code refactory
  *   3-4-1. make code to block by service(or feature) [make to easy change/update feature or service]
  *   3-4-2. change hard coding data(final typeof String, int) to enum
- * 
+ *
  */
 /**
  * Design
  * Scroll down(time sequence)
  * if clieck image, popup effect
  */
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 export default function Home() {
-    return(
-        <div>
-             <Timeline position="alternate-reverse">
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Eat</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Code</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Sleep</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot />
-        </TimelineSeparator>
-        <TimelineContent>Repeat</TimelineContent>
-      </TimelineItem>
-    </Timeline>
-        </div>
-    )
+  return (
+    <Container>
+      <Item
+        id="security item"
+        style={{
+          width: "90%",
+          marginBottom: "3rem",
+          marginTop: "3rem",
+        }}
+      >
+        <Timeline position="left">
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot color="primary" />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Change PHP to Spring Boot</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot color="primary" />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Apply Spring Security</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineOppositeContent>
+              <Typography>
+                서버 - 클라이언트 통신 간 데이터 보안 필요
+              </Typography>
+              <Typography>JWT 적용</Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="success" />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent></TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineOppositeContent>
+              <Typography>계정 별 접근 권한 분리 필요</Typography>
+              <Typography>
+                Rule을 부여하여 계정 별 서비스 접근 권한 부여
+              </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="success" />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent></TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineOppositeContent>
+              <Typography>
+                비지니스 로직 실행 전, 요청에 대한 권한 확인 필요
+              </Typography>
+              <Typography>filter 전에 커스텀 JWT 필터를 적용</Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="success" />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent></TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineOppositeContent>
+              <Typography>
+                웹에서 이미지 요청할때 header 안에 토큰을 담기 힘든 경우 존재
+              </Typography>
+              <Typography>
+                해당 api만 url에 토큰을 추가하고 white 리스트로 별도 관리
+              </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="success" />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent></TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineOppositeContent>
+              <Typography>
+                클라이언트 개발을 위해 상황별 상태값 리턴 필요
+              </Typography>
+              <Typography>커스텀 필터를 통해 httpStatus 코드 리턴</Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="success" />
+            </TimelineSeparator>
+            <TimelineContent></TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      </Item>
+      <Item
+        id="feature item"
+        style={{
+          width: "90%",
+          marginBottom: "3rem",
+        }}
+      >
+        <Timeline position="alternate-reverse">
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Eat</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Code</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Sleep</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+            </TimelineSeparator>
+            <TimelineContent>Repeat</TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      </Item>
+      <Item
+        id="maintenance item"
+        style={{
+          width: "90%",
+          marginBottom: "3rem",
+        }}
+      >
+        <Timeline position="alternate-reverse">
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Eat</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Code</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>Sleep</TimelineContent>
+          </TimelineItem>
+          <TimelineItem>
+            <TimelineSeparator>
+              <TimelineDot />
+            </TimelineSeparator>
+            <TimelineContent>Repeat</TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      </Item>
+    </Container>
+  );
 }
