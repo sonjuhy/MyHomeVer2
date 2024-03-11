@@ -12,7 +12,6 @@ import MenuItem from "@mui/material/MenuItem";
 
 import MyHomeIcon from "/public/image/icon/MyHomeIcon.png";
 import Image from "next/image";
-import { useMediaQuery } from "@mui/material";
 
 const pages = ["about", "BackEnd", "Android", "IoT"];
 
@@ -35,13 +34,13 @@ export default function Header() {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Image
+              {/* <Image
                 src={MyHomeIcon}
                 width={0}
                 height={0}
                 alt="Picture of the icon"
                 style={{ marginRight: "1rem", width: "5%", height: "auto" }}
-              />
+              /> */}
               <Typography
                 variant="h6"
                 noWrap
@@ -110,7 +109,7 @@ export default function Header() {
               </Menu>
             </Box>
 
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <Image
                 src={MyHomeIcon}
                 width={30}
@@ -118,7 +117,7 @@ export default function Header() {
                 alt="Picture of the icon"
                 style={{ marginRight: "1rem" }}
               />
-            </Box>
+            </Box> */}
 
             <Typography
               variant="h5"
@@ -136,7 +135,7 @@ export default function Header() {
                 textDecoration: "none",
               }}
             >
-              MyHome Ver.1
+              MyHome Ver.2
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
