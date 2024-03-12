@@ -1,4 +1,9 @@
 const codeStore = {
-  tmpCode: "",
+  android: {
+    tmp: {
+      title: [],
+      code: [],
+    },
+  },
 };
 export default codeStore;

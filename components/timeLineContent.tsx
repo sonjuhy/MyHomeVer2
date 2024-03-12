@@ -1,27 +1,30 @@
 import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../context/redux/hooks";
+import explainStore from "../context/explainStore";
 
 interface customTimeLineContentProps {
   name: string;
+  part: string;
   codeType: string;
-  useStatusSet: ((text: string) => void)[]; // 0 : title, 1 : content, 2 : problem, 3 : solution
-  contentSet: string[]; // 0 : title, 1 : content, 2 : problem, 3 : solution
+  useStatusSet: ((text: string) => void)[]; // 0 : title, 1 : content
+  useStatusArrSet: ((arr: string[]) => void)[]; // 0 : problem, 1 :solution
   handleStatus: () => void;
 }
 export default function TimeLineContent({
   name,
   codeType,
-  contentSet,
+  part,
   useStatusSet,
+  useStatusArrSet,
   handleStatus,
 }: customTimeLineContentProps) {
   const smallMode = useAppSelector((state) => state.page.smallMode);
   const fontSize = smallMode ? 14 : 16;
 
-  const title: string = contentSet?.[0];
-  const content: string = contentSet?.[1];
-  const problem: string = contentSet?.[2];
-  const solution: string = contentSet?.[3];
+  const title: string = explainStore[part][name]["title"];
+  const content: string = explainStore[part][name]["content"];
+  const problem: string[] = explainStore[part][name]["problem"];
+  const solution: string[] = explainStore[part][name]["solution"];
 
   return (
     <div>
@@ -30,8 +33,8 @@ export default function TimeLineContent({
         onClick={() => {
           useStatusSet[0](title);
           useStatusSet[1](content);
-          useStatusSet[2](problem);
-          useStatusSet[3](solution);
+          useStatusArrSet[0](problem);
+          useStatusArrSet[1](solution);
           handleStatus();
         }}
       >
