@@ -24,6 +24,7 @@ import CustomTimeLineContent from "../../../components/timeLineContent";
 import { useAppDispatch, useAppSelector } from "../../../context/redux/hooks";
 import PortfolioContext from "../../../context/context";
 import { changeSmallMode } from "../../../context/redux/feature/pageSize/pageSlice";
+import { eventNames } from "process";
 /**
  * Content
  * backend
@@ -91,6 +92,9 @@ export default function Home() {
   const [modalContent, setModalContent] = useState("Modal Content");
   const [modalProblem, setModalProblem] = useState(["Modal Problem"]);
   const [modalSolved, setModalSolved] = useState(["Modal solved"]);
+  const [modalCodeType, setModalCodeType] = useState("java");
+  const [modalPart, setModalPart] = useState("tmp");
+  const [modalName, setModalName] = useState("tmp");
 
   const [modalOpen, setModalOpen] = useState(false);
   const controlModalVisible = () => {
@@ -101,6 +105,24 @@ export default function Home() {
   const { prefix }: any = useContext(PortfolioContext);
   const smallMode = useAppSelector((state) => state.page.smallMode);
   const fontSize = smallMode ? 14 : 16;
+
+  const setModalData = (
+    title: string,
+    content: string,
+    codeType: string,
+    part: string,
+    name: string,
+    problems: string[],
+    solutions: string[]
+  ) => {
+    setModalTitle(title);
+    setModalContent(content);
+    setModalCodeType(codeType);
+    setModalProblem(problems);
+    setModalSolved(solutions);
+    setModalPart(part);
+    setModalName(name);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -129,13 +151,15 @@ export default function Home() {
   return (
     <div id="backend-container">
       <DetailModal
-        code="test code"
+        part={modalPart}
+        name={modalName}
         show={modalOpen}
         handleStatus={controlModalVisible}
         title={modalTitle}
         content={modalContent}
         problems={modalProblem}
         solved={modalSolved}
+        codeType={modalCodeType}
       />
       <Stack
         style={{
@@ -207,8 +231,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="jwt"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -224,8 +247,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="rule"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -241,8 +263,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="jwtFilter"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -258,8 +279,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="whiteList"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -275,8 +295,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="customFilter"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -343,8 +362,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="weatherFeature"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -369,8 +387,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="iotFeature"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -395,8 +412,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="sftp"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -412,8 +428,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="fullSearch"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -429,8 +444,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="thumbnail"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -446,8 +460,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="lowQualityImage"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -463,8 +476,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="walksAndBulk"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -480,8 +492,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="batch"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -549,8 +560,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="CIAndCD"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -566,8 +576,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="restart"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -583,8 +592,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="container"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -609,8 +617,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="weatherMaintenance"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -635,8 +642,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="onlyLogic"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -652,8 +658,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="migration"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -678,8 +683,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="buildLogSystem"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -695,8 +699,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="logDivPart"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -721,8 +724,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="block"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />
@@ -738,8 +740,7 @@ export default function Home() {
                 <CustomTimeLineContent
                   name="enum"
                   codeType="java"
-                  useStatusSet={[setModalTitle, setModalContent]}
-                  useStatusArrSet={[setModalProblem, setModalSolved]}
+                  setModalData={setModalData}
                   part="backend"
                   handleStatus={controlModalVisible}
                 />

@@ -6,16 +6,22 @@ interface customTimeLineContentProps {
   name: string;
   part: string;
   codeType: string;
-  useStatusSet: ((text: string) => void)[]; // 0 : title, 1 : content
-  useStatusArrSet: ((arr: string[]) => void)[]; // 0 : problem, 1 :solution
+  setModalData: (
+    title: string,
+    content: string,
+    codeType: string,
+    part: string,
+    name: string,
+    problems: string[],
+    solutions: string[]
+  ) => void;
   handleStatus: () => void;
 }
 export default function TimeLineContent({
   name,
   codeType,
   part,
-  useStatusSet,
-  useStatusArrSet,
+  setModalData,
   handleStatus,
 }: customTimeLineContentProps) {
   const smallMode = useAppSelector((state) => state.page.smallMode);
@@ -31,10 +37,7 @@ export default function TimeLineContent({
       <div
         style={{ cursor: "pointer" }}
         onClick={() => {
-          useStatusSet[0](title);
-          useStatusSet[1](content);
-          useStatusArrSet[0](problem);
-          useStatusArrSet[1](solution);
+          setModalData(title, content, codeType, part, name, problem, solution);
           handleStatus();
         }}
       >
