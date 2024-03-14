@@ -7,8 +7,11 @@ import { CodeBlock, dracula } from "react-code-blocks";
 import CloseIcon from "@mui/icons-material/Close";
 
 import codeStore from "../context/codeStore";
+import imagePathStore from "../context/imagePathStore";
 
 import { useAppSelector } from "../context/redux/hooks";
+import PortfolioContext from "../context/context";
+import { Router, useRouter } from "next/router";
 
 interface DetailModalProps {
   part: string;
@@ -33,14 +36,34 @@ export default function Detail({
   show,
   handleStatus,
 }: DetailModalProps) {
+  const [fullScreen, setFullScreen] = React.useState(false);
+  const [imageName, setImageName] = React.useState("");
+
   const smallMode = useAppSelector((state) => state.page.smallMode);
   const fontSize = smallMode ? 14 : 16;
+  const { prefix }: any = React.useContext(PortfolioContext);
+
+  const router = useRouter();
 
   const codeItemLength: number = codeStore[part][name]["len"];
   const codeTitleList: string[] = codeStore[part][name]["title"];
   const codeList: string[] = codeStore[part][name]["code"];
 
-  const closeModal = () => {
+  const imageLength: number = imagePathStore[part][name]["len"];
+  const imageTitleList: string[] = imagePathStore[part][name]["title"];
+  const imagePathList: string[] = imagePathStore[part][name]["path"];
+
+  const closeMainModal = () => {
+    setFullScreen(false);
+    handleStatus();
+  };
+  const closeImageModal = () => {
+    setFullScreen(!fullScreen);
+    handleStatus();
+  };
+  const clickImage = (name: string) => {
+    setImageName(name);
+    setFullScreen(true);
     handleStatus();
   };
 
@@ -50,8 +73,30 @@ export default function Detail({
         disablePortal
         disableEnforceFocus
         disableAutoFocus
+        open={fullScreen}
+        onClose={closeImageModal}
+        aria-labelledby="server-modal-title"
+        aria-describedby="server-modal-description"
+        sx={{
+          display: "flex",
+          p: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box>
+          <IconButton aria-label="close" onClick={closeImageModal}>
+            <CloseIcon />
+          </IconButton>
+          <img src={`${prefix}/image/image/${imageName}`} />
+        </Box>
+      </Modal>
+      <Modal
+        disablePortal
+        disableEnforceFocus
+        disableAutoFocus
         open={show}
-        onClose={handleStatus}
+        onClose={closeMainModal}
         aria-labelledby="server-modal-title"
         aria-describedby="server-modal-description"
         sx={{
@@ -73,7 +118,7 @@ export default function Detail({
             <Box
               sx={{ width: "100%", textAlign: smallMode ? "right" : "left" }}
             >
-              <IconButton aria-label="close" onClick={handleStatus}>
+              <IconButton aria-label="close" onClick={closeMainModal}>
                 <CloseIcon />
               </IconButton>
             </Box>
@@ -157,6 +202,39 @@ export default function Detail({
                       </div>
                     );
                   })}
+                  {imageLength > 0 && (
+                    <div>
+                      <Typography
+                        variant="overline"
+                        fontSize={fontSize}
+                        fontWeight={"bolder"}
+                        marginLeft={"0.5rem"}
+                      >
+                        📸 screenshot
+                      </Typography>
+                      <Typography
+                        fontSize={fontSize * 0.8}
+                        marginLeft={"0.5rem"}
+                        marginBottom={"0.9rem"}
+                      >
+                        ※ 이미지를 클릭 시, 확대됩니다.
+                      </Typography>
+                      {imagePathList.map((path, idx) => {
+                        return (
+                          <div key={idx} style={{ margin: "0.5rem" }}>
+                            <Typography>◽ {imageTitleList[idx]}</Typography>
+                            <br />
+                            <img
+                              src={`${prefix}/image/image/${path}`}
+                              onClick={() => clickImage(path)}
+                              style={{ cursor: "pointer" }}
+                            />
+                            <br />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </Card>
               </Grid>
             </Grid>

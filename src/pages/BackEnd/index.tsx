@@ -17,7 +17,7 @@ import {
   Typography,
   styled,
 } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import DetailModal from "../../../components/detailModal";
 import CustomTimeLineContent from "../../../components/timeLineContent";
@@ -25,6 +25,7 @@ import { useAppDispatch, useAppSelector } from "../../../context/redux/hooks";
 import PortfolioContext from "../../../context/context";
 import { changeSmallMode } from "../../../context/redux/feature/pageSize/pageSlice";
 import { eventNames } from "process";
+import router from "next/router";
 /**
  * Content
  * backend
@@ -137,7 +138,6 @@ export default function Home() {
         dispatch(changeSmallMode(false));
       }
     };
-
     // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
     handleResize();
     window.addEventListener("resize", handleResize);
