@@ -84,7 +84,7 @@ export default function Detail({
           justifyContent: "center",
         }}
       >
-        <Box>
+        <Box sx={{ textAlign: "right" }}>
           <IconButton aria-label="close" onClick={closeImageModal}>
             <CloseIcon />
           </IconButton>
@@ -116,7 +116,7 @@ export default function Detail({
         >
           <Box sx={{ margin: "1rem", height: "100%" }}>
             <Box
-              sx={{ width: "100%", textAlign: smallMode ? "right" : "left" }}
+              sx={{ width: "100%", textAlign: smallMode ? "right" : "right" }}
             >
               <IconButton aria-label="close" onClick={closeMainModal}>
                 <CloseIcon />

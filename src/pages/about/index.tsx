@@ -121,7 +121,7 @@ export default function Home() {
                 fontWeight: "bold",
               }}
             >
-              MyHome Ver. 1 Portfolio
+              MyHome Ver. 2 Portfolio
             </Typography>
             <Typography
               style={{
@@ -129,7 +129,7 @@ export default function Home() {
                 fontWeight: "bold",
               }}
             >
-              IoT Project
+              IoT Refactoring Project
             </Typography>
           </Stack>
         </Stack>

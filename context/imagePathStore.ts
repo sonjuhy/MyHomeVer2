@@ -9,14 +9,14 @@ const imagePathStore: { [key: string]: any } = {
   android: {
     tmp: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
   },
   backend: {
     jwt: {
       len: 0,
-      title: [""],
+      title: [],
       path: [],
     },
     rule: {
@@ -26,43 +26,58 @@ const imagePathStore: { [key: string]: any } = {
     },
     jwtFilter: {
       len: 0,
-      title: [""],
+      title: [],
       path: [],
     },
     whiteList: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
     customFilter: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
     weatherFeature: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
     iotFeature: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
+    },
+    sftp: {
+      len: 0,
+      title: [],
+      code: [],
     },
     fullSearch: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
     thumbnail: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
     batch: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
+    },
+    lowQualityImage: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    walksAndBulk: {
+      len: 0,
+      title: [],
+      path: [],
     },
     CIAndCD: {
       len: 1,
@@ -81,13 +96,18 @@ const imagePathStore: { [key: string]: any } = {
     },
     weatherMaintenance: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
+    },
+    cloud: {
+      len: 0,
+      title: [],
+      path: [],
     },
     onlyLogic: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
     migration: {
       len: 1,
@@ -111,15 +131,31 @@ const imagePathStore: { [key: string]: any } = {
     },
     enum: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
     },
   },
   iot: {
     tmp: {
       len: 0,
-      title: [""],
-      path: [""],
+      title: [],
+      path: [],
+    },
+
+    origin: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    connect: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    control: {
+      len: 0,
+      title: [],
+      path: [],
     },
   },
 };

@@ -265,6 +265,30 @@ const explainStore: { [key: string]: any } = {
       problem: [""],
       solution: [""],
     },
+    origin: {
+      title: "MQTT 서버와 연결이 끊긴 경우 제어 불가능",
+      content: "MQTT 서버와 재연결 시도 되는 동안 버튼 제어 불가능",
+      problem: [
+        "MQTT 서버와 연결이 끊긴 경우 연결 재시작 과정이 5초 걸리고 그동안 제어 불가능. 싱글 스레드라서 별도로 분리 불가.",
+      ],
+      solution: ["Ver 1 코드의 에러 설명란."],
+    },
+    connect: {
+      title: "MQTT 서버와 연결 시도를 메인 스레드와 별개로 분리 필요",
+      content: "MQTT 서버와 연결하는 부분을 인터럽트로 이동",
+      problem: ["MQTT 서버와 연결 시도를 메인 스레드와 별개로 분리 필요"],
+      solution: [
+        "재연결 기능을 인터럽트로 처리하여 메인 스레드로부터 분리. 스위치 제어와는 별개로 작동하도록 함.",
+      ],
+    },
+    control: {
+      title: "인터럽트 기능이 너무 무거움",
+      content: "인터럽트 기능 자체를 최대한 가볍게 변경",
+      problem: ["MQTT 재연결은 인터럽트 기능으로 넣기에 너무 무거운 기능."],
+      solution: [
+        "MQTT 재연결은 메인 스레드로 처리하고, 버튼 제어를 인터럽트로 처리하여 가볍게 처리함.",
+      ],
+    },
   },
 };
 export default explainStore;
