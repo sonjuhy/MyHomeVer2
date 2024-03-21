@@ -12,6 +12,51 @@ const imagePathStore: { [key: string]: any } = {
       title: [],
       path: [],
     },
+    sdk: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    broadcast: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    retrofit2: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    fragment: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    component: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    thumbnail: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    mvvm: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    defaultInfo: {
+      len: 0,
+      title: [],
+      path: [],
+    },
+    enum: {
+      len: 0,
+      title: [],
+      path: [],
+    },
   },
   backend: {
     jwt: {
@@ -52,7 +97,7 @@ const imagePathStore: { [key: string]: any } = {
     sftp: {
       len: 0,
       title: [],
-      code: [],
+      path: [],
     },
     fullSearch: {
       len: 0,
@@ -86,7 +131,7 @@ const imagePathStore: { [key: string]: any } = {
     },
     restart: {
       len: 1,
-      title: ["Restart Option(Jenkins deploy code)"],
+      title: ["Restart Option(Jenkins deploy path)"],
       path: ["restart.png"],
     },
     container: {
@@ -126,7 +171,7 @@ const imagePathStore: { [key: string]: any } = {
     },
     block: {
       len: 1,
-      title: ["Build Code Block by Service(feature)"],
+      title: ["Build path Block by Service(feature)"],
       path: ["block.png"],
     },
     enum: {

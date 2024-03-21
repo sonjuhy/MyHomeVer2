@@ -6,6 +6,70 @@ const explainStore: { [key: string]: any } = {
       problem: [""],
       solution: [""],
     },
+    sdk: {
+      title: "SDK 업데이트 필요",
+      content: "28 → 34로 업데이트",
+      problem: ["Android SDK를 유저 기기(최소 SDK 33)에 맞게 업데이트 필요."],
+      solution: [
+        "Android SDK를 28에서 34로 업데이트 및 레거시 코드 or 라이브러리도 업데이트",
+      ],
+    },
+    broadcast: {
+      title: "보안을 위해 MQTT 리스너 값 브로드캐스트 범위 축소",
+      content: "브로드캐스트 범위 글로벌에서 로컬로 변경",
+      problem: [
+        "업데이트 된 SDK의 보안 정책에 따라 MQTT 리스너에 들어온 값들을 여러 엑티비티가 공유할 수 있도록 방송하는 범위를 줄여야 함.",
+      ],
+      solution: [
+        "브로드캐스트 범위를 글로벌에서 로컬로 변경하여 앱 안에서만 하도록 설정.",
+      ],
+    },
+    retrofit2: {
+      title: "네트워크 라이브러리 변경",
+      content: "Retrofit 2으로 변경",
+      problem: [
+        "AsyncTask가 레거시 코드로 분류됨으로써, 새로운 네트워크 라이브러리가 필요.",
+      ],
+      solution: [
+        "백엔드 서비스를 REST API로 전부 변경하였기에 이에 잘맞는 라이브러리인 Retrofit2로 변경.",
+      ],
+    },
+    fragment: {
+      title: "기능들이 한 페이지 안에 들어오지 않음",
+      content: "Fragment를 이용하여 최대한 페이지 벗어나지 않게 함",
+      problem: [""],
+      solution: [""],
+    },
+    component: {
+      title: "",
+      content: "",
+      problem: [""],
+      solution: [""],
+    },
+    thumbnail: {
+      title: "",
+      content: "",
+      problem: [""],
+      solution: [""],
+    },
+    mvvm: {
+      title: "",
+      content: "",
+      problem: [""],
+      solution: [""],
+    },
+    defaultInfo: {
+      title: "",
+      content: "",
+      problem: [""],
+      solution: [""],
+    },
+    enum: {
+      title: "",
+      content: "",
+      problem: [""],
+      solution: [""],
+    },
   },
   backend: {
     jwt: {

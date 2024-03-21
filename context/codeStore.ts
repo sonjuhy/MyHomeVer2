@@ -5,6 +5,51 @@ const codeStore: { [key: string]: any } = {
       title: [],
       code: [],
     },
+    sdk: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    broadcast: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    retrofit2: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    fragment: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    component: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    thumbnail: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    mvvm: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    defaultInfo: {
+      len: 0,
+      title: [],
+      code: [],
+    },
+    enum: {
+      len: 0,
+      title: [],
+      code: [],
+    },
   },
   android: {
     tmp: {
