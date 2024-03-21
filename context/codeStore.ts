@@ -5,20 +5,353 @@ const codeStore: { [key: string]: any } = {
       title: [],
       code: [],
     },
+  },
+  android: {
+    tmp: {
+      len: 0,
+      title: [],
+      code: [],
+    },
     sdk: {
       len: 0,
       title: [],
       code: [],
     },
     broadcast: {
-      len: 0,
-      title: [],
-      code: [],
+      len: 2,
+      title: ["Before(Global Broadcast)", "After(Local Broadcast)"],
+      code: [
+        `BroadcastReceiver broadcastReceiver;
+broadcastReceiver = new BroadcastReceiverForMainActivity();`,
+        ` LocalBroadcastManager.getInstance(this).registerReceiver(LightInfoBroadcast, filter);`,
+      ],
     },
     retrofit2: {
-      len: 0,
-      title: [],
-      code: [],
+      len: 2,
+      title: ["Before(AsyncTask)", "After(Retrofit2)"],
+      code: [
+        `public class Network extends AsyncTask<String, Void, String> {
+        private HttpURLConnection httpURLConnection = null;
+        private OutputStream outputStream = null;
+        private String data = null;
+        private String link = "192.168.0.254/home";
+        private String line = null;
+        private String mJsonString = null;
+        private int responseStatusCode = 0;
+        private int mode = 0;
+        private boolean dialog_use = false;
+        private boolean upload_mode = false;
+    
+        private Context context;
+        private InputStream inputStream = null;
+        private InputStreamReader inputStreamReader = null;
+        private BufferedReader bufferedReader = null;
+        private StringBuilder stringBuilder = null;
+        private URL url = null;
+    
+        private ProgressDialog progressDialog;
+    
+        public Network(Context context){
+            this.context = context;
+            this.dialog_use = true;
+        }
+        public Network(){
+            this.dialog_use = false;
+        }
+        @Override
+        protected void onPreExecute() {
+            if(dialog_use) {
+                progressDialog = new ProgressDialog(context);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("로딩 중입니다.");
+                progressDialog.show();
+            }
+            super.onPreExecute();
+        }
+    
+        @Override
+        protected String doInBackground(String... _param){
+            String n = _param[0];
+            switch (n){
+                case "login":
+                    link += "/Login_Check.php";
+                    Login_Input(_param[1],_param[2]);
+                    mode = 1;
+                    upload_mode = true;
+                    break;
+                /*.....*/
+    
+            }
+            try{
+                url = new URL(link);
+    
+                httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setReadTimeout(15000);
+                httpURLConnection.setConnectTimeout(15000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.connect();
+    
+                if(upload_mode) {
+                    outputStream = httpURLConnection.getOutputStream();
+                    outputStream.write(data.getBytes(StandardCharsets.UTF_8));
+                    outputStream.flush();
+                    outputStream.close();
+                }
+    
+                responseStatusCode = httpURLConnection.getResponseCode();
+    
+                if(responseStatusCode == HttpURLConnection.HTTP_OK){
+                    inputStream = httpURLConnection.getInputStream();
+                    System.out.println("response is ok");
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+                inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                bufferedReader = new BufferedReader(inputStreamReader);
+    
+                stringBuilder = new StringBuilder();
+    
+                while((line = bufferedReader.readLine()) != null){
+                    stringBuilder.append(line);
+                }
+    
+                httpURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+    
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+                System.out.println("protocol error");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("IO error");
+            }
+    
+            return "Error";
+        }
+    
+        @Override
+        protected void onPostExecute(String s) {
+            switch (mode){
+                case 1://login
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+            if(dialog_use) {
+                progressDialog.dismiss();
+            }
+            super.onPostExecute(s);
+        }
+    
+        private void Login_Input(String user_id, String user_pw){
+            try {
+                data = URLEncoder.encode("ID", "UTF-8") + "=" + URLEncoder.encode(user_id, "UTF-8");
+                data += "&" + URLEncoder.encode("PW", "UTF-8") + "=" + URLEncoder.encode(user_pw, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        private void Signin_Input(String user_id, String user_pw, String user_name){
+            try {
+                data = URLEncoder.encode("ID", "UTF-8") + "=" + URLEncoder.encode(user_id, "UTF-8");
+                data += "&" + URLEncoder.encode("Name","UTF-8")+"="+ URLEncoder.encode(user_name,"UTF-8");
+                data += "&" + URLEncoder.encode("PW", "UTF-8") + "=" + URLEncoder.encode(user_pw, "UTF-8");
+                System.out.println("Sign data : " + data);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        /*.....*/
+    }`,
+        `
+public class LoadingAuthAdapter {
+    private final static String baseURL = BuildConfig.SERVER_ADDRESS;
+    private static int progressValue = 0;
+    private int MAINACTIVITY_CODE = 100;
+    private int LOGINACTIVITY_CODE = 200;
+
+    private AuthService service;
+
+    private Retrofit retrofit;
+
+    public LoadingAuthAdapter(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseURL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(AuthService.class);
+    }
+
+    public void loginWithAuto(Context loadingActivityContext, SharedPreferences sp, String id, String pw, boolean weatherLoading, ProgressBar bar, TextView textView){
+        UserDto tmpDto = new UserDto(id, pw);
+        System.out.println("LoadingAuthAdapter AutoLoading tmpDto : " + tmpDto);
+
+        new Thread(()->{
+            Call<String> callUserDto = service.signIn(tmpDto);
+            try {
+                Response<String> callUserResponse = callUserDto.execute();
+                if(callUserResponse.isSuccessful()){
+                    String callUserString = callUserResponse.body();
+                    Log.i("LoadingAuthAdapter","responsebody : " + callUserString);
+
+                    JsonParser parser = new JsonParser();
+                    JsonElement element = parser.parse(callUserString);
+                    JsonObject object = element.getAsJsonObject();
+                    String strAccess = object.get("accessToken").getAsString();
+                    String strRefresh = object.get("refreshToken").getAsString();
+
+
+                    Intent intent = new Intent(loadingActivityContext, MainForceActivity.class);
+
+                    USER user = bean.getUser();
+                    user.setAccessToken(strAccess);
+                    user.setRefreshToken(strRefresh);
+
+                    Call<UserDto> callUserDTO = service.getUserInfo(strAccess);
+                    Response<UserDto> callUserResult = callUserDTO.execute();
+                    if(callUserResult.isSuccessful()){
+                        UserDto userDto = callUserResult.body();
+                        if(userDto != null){
+                            if(userDto.getName() != null) {
+                                user.setName(userDto.getName());
+                                if(userDto.getId() != null) user.setID(userDto.getId());
+
+                                boolean mustLoading = true;
+
+                                // light loading
+                                changeTextView(textView, "IoT 서비스 로딩 중...");
+                                MainLightAdapter lightAdapter = new MainLightAdapter();
+                                boolean lightResult = lightAdapter.loadingLightItemsSync();
+                                SharedPreferences sharedPreferences = loadingActivityContext.getSharedPreferences("roomMark",MODE_PRIVATE);
+                                ArrayList<String> markRooms = markRoomJSONParsing(sharedPreferences);
+                                bean.setMarkRoomList(markRooms);
+
+                                changeProgressBar(bar, ++progressValue);
+                                if(lightResult){
+                                    changeTextView(textView, "IoT 서비스 로딩 완료");
+                                }
+                                else{
+                                    changeTextView(textView, "IoT 서비스 로딩 실패");
+                                    mustLoading = false;
+                                }
+                                Log.i("LoadingAuthAdapter", "light list size : "+bean.getLightListItems().size());
+
+                                if(weatherLoading) { // weather loading
+                                    changeTextView(textView, "날씨 로딩 중...");
+                                    MainWeatherAdapter weatherAdapter = new MainWeatherAdapter();
+                                    boolean weatherResult = weatherAdapter.setLoadingWeatherInfoSync(91,76);
+                                    changeProgressBar(bar, ++progressValue);
+                                    if(weatherResult){
+                                        changeTextView(textView, "날씨 로딩 완료");
+                                    }
+                                    else{
+                                        changeTextView(textView, "날씨 로딩 실패");
+                                    }
+                                }
+                                else{
+                                    changeProgressBar(bar, ++progressValue);
+                                }
+                                intent.putExtra("WeatherLoading", weatherLoading);
+
+                                // notice loading
+                                changeTextView(textView, "공지 로딩 중...");
+                                LoadingNoticeAdapter noticeAdapter = new LoadingNoticeAdapter();
+                                boolean noticeResult = noticeAdapter.getNoticeListInfoSync();
+                                if(noticeResult){
+                                    changeTextView(textView, "공지 로딩 완료");
+                                }
+                                else{
+                                    changeTextView(textView, "공지 로딩 실패");
+                                    mustLoading = false;
+                                }
+                                changeProgressBar(bar, ++progressValue);
+
+
+                                // cloud loading
+                                changeTextView(textView, "클라우드 로딩 중...");
+                                CloudServiceAdapter cloudServiceAdapter = new CloudServiceAdapter();
+                                boolean cloudResult = cloudServiceAdapter.getCloudDefaultPathSync();
+                                if(cloudResult){
+                                    changeTextView(textView, "클라우드 로딩 완료");
+                                }
+                                else{
+                                    changeTextView(textView, "클라우드 로딩 실패");
+                                    mustLoading = false;
+                                }
+                                changeProgressBar(bar, ++progressValue);
+
+
+                                if(mustLoading) ((LoadingActivity) loadingActivityContext).startLoading(intent);
+                                else throw new IOException();
+
+                            }
+
+                        }
+                    }
+                    else{
+                        SharedPreferences.Editor autoLoginDelete = sp.edit();
+                        autoLoginDelete.clear();
+                        autoLoginDelete.apply();
+                        Intent loginIntent = new Intent(loadingActivityContext, LoginActivity.class);
+                        loginIntent.putExtra("factor","autoFailed");
+                        ((LoadingActivity) loadingActivityContext).startLoading(loginIntent);
+                    }
+                }
+                else{
+                    showToast(loadingActivityContext,"서버에서 오류가 발생했습니다.");
+                    SharedPreferences.Editor autoLoginDelete = sp.edit();
+                    autoLoginDelete.clear();
+                    autoLoginDelete.apply();
+                    Intent intent = new Intent(loadingActivityContext, LoginActivity.class);
+                    intent.putExtra("factor","autoFailed");
+                    ((LoadingActivity) loadingActivityContext).startLoading(intent);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                showToast(loadingActivityContext,"서버에서 오류가 발생했습니다.");
+                SharedPreferences.Editor autoLoginDelete = sp.edit();
+                autoLoginDelete.clear();
+                autoLoginDelete.apply();
+                Intent intent = new Intent(loadingActivityContext, LoginActivity.class);
+                intent.putExtra("factor","autoFailed");
+                ((LoadingActivity) loadingActivityContext).startLoading(intent);
+            }
+        }).start();
+    }
+    private ArrayList<String> markRoomJSONParsing(SharedPreferences sp){
+        String jsonStr = sp.getString("roomMark",null);
+        ArrayList<String> roomNames = new ArrayList<>();
+        if(jsonStr != null){
+            try {
+                JSONArray jsonArray = new JSONArray(jsonStr);
+                for(int i=0;i<jsonArray.length();i++){
+                    roomNames.add(jsonArray.optString(i));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return roomNames;
+    }
+    public void showToast(Context context, String msg){
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(() -> Toast.makeText(context, msg, Toast.LENGTH_LONG).show());
+    }
+    public void changeTextView(TextView textView, String content){
+        textView.post(() -> textView.setText(content));
+    }
+    public void changeProgressBar(ProgressBar bar, int progressValue){
+        bar.post(() -> bar.setProgress(progressValue));
+    }
+}`,
+      ],
     },
     fragment: {
       len: 0,
@@ -41,21 +374,44 @@ const codeStore: { [key: string]: any } = {
       code: [],
     },
     defaultInfo: {
-      len: 0,
-      title: [],
-      code: [],
+      len: 2,
+      title: ["Before(HardCoding)", "After(Retrofit2)"],
+      code: [
+        `path_private_trash_can = "/home/disk1/home/private/User_"+fnumber+"/휴지통";
+        path_public_trash_can ="/home/disk1/home/public/휴지통";
+        server_folder_private.add("/home/disk1/home/private/User_"+fnumber);
+        server_folder_public.add("/home/disk1/home/public");`,
+        `changeTextView(textView, "클라우드 로딩 중...");
+      CloudServiceAdapter cloudServiceAdapter = new CloudServiceAdapter();
+      boolean cloudResult = cloudServiceAdapter.getCloudDefaultPathSync();
+      if(cloudResult){
+          changeTextView(textView, "클라우드 로딩 완료");
+      }
+      else{
+          changeTextView(textView, "클라우드 로딩 실패");
+          mustLoading = false;
+      }`,
+      ],
     },
     enum: {
-      len: 0,
-      title: [],
-      code: [],
-    },
-  },
-  android: {
-    tmp: {
-      len: 0,
-      title: [],
-      code: [],
+      len: 1,
+      title: ["Enum(MQTT part)"],
+      code: [
+        `public enum MQTTEnum {
+        LIGHT("SEND_MQTT_LIGHT"),
+        NOTICE("SEND_MQTT_NOTICE"),
+        DISCONNECT("SEND_MQTT_DISCONNECT"),
+    
+        TOPIC_LIGHT_PUB("MyHome/Light/Pub/Server"),
+        TOPIC_LIGHT_SUB("MyHome/Light/Result"),
+        TOPIC_NOTICE_PUB(""),
+        TOPIC_NOTICE_SUB("MyHome/Notice/Sub");
+    
+        private final String target;
+        MQTTEnum(String target){this.target = target;}
+        public String getTarget(){return target;}
+    }`,
+      ],
     },
   },
   backend: {

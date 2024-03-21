@@ -37,38 +37,60 @@ const explainStore: { [key: string]: any } = {
     fragment: {
       title: "기능들이 한 페이지 안에 들어오지 않음",
       content: "Fragment를 이용하여 최대한 페이지 벗어나지 않게 함",
-      problem: [""],
-      solution: [""],
+      problem: [
+        "기능들을 확인하고 사용하려면 페이지 이동을 세부 메뉴로 이동을 계속 해야함.",
+      ],
+      solution: [
+        "Fragment를 통해 메인 기능들을 최대한 이동 없이 직관적으로 확인 할 수 있도록 변경 함.",
+      ],
     },
     component: {
-      title: "",
-      content: "",
-      problem: [""],
-      solution: [""],
+      title: "컴포넌트 사이즈가 작아 가독성이 좋지 않음",
+      content: "컴포넌트 사이즈를 키워서 해결",
+      problem: [
+        "기존 컴포넌트는 사이즈가 작아서 내부의 글 혹은 정보를 읽는 가독성이 좋지 않음.",
+      ],
+      solution: [
+        "컴포넌트 사이즈를 키우고 정보도 직관적으로 변경하여 정보 가독성을 증가 시킴.",
+      ],
     },
     thumbnail: {
-      title: "",
-      content: "",
-      problem: [""],
-      solution: [""],
+      title: "이미지 혹은 비디오 파일 정보를 미리 확인하고 싶음",
+      content: "썸네일 기능을 이용하여 제공",
+      problem: [
+        "이미지 혹은 비디오 파일을 세부정보 확인 전에 미리 어떤 파일인지 확인하고 싶음.",
+      ],
+      solution: ["썸네일 기능을 이용하여 해당 파일에 대한 정보를 미리 제공."],
     },
     mvvm: {
-      title: "",
-      content: "",
-      problem: [""],
-      solution: [""],
+      title: "안드로이드 코드 유지 보수 위한 패턴 필요",
+      content: "MVVM 패턴을 적용",
+      problem: [
+        "유지 보수을 수월하게 하기 위해 디자인 패턴이 필요하다는 것을 리팩토링을 통해 절실히 느낌.",
+      ],
+      solution: [
+        "MVVM 패턴을 이용하여 Model, ViewModel, View로 나뉘어서 기능과 view 그리고 연결 파트로 나눠 코드 유지보수를 수월하게 함.",
+      ],
     },
     defaultInfo: {
-      title: "",
-      content: "",
-      problem: [""],
-      solution: [""],
+      title: "기본 정보에 관한 유지보수를 쉽게 하고자 함",
+      content: "하드코딩으로 적힌 데이터를 DB로 이관함",
+      problem: [
+        "기본 정보에 관련된 데이터가 하드 코딩으로 되어 있어서 유지보수 향상을 위해 변경 필요.",
+      ],
+      solution: [
+        "해당 데이터를 DB로 이관하여 데이터가 변경이 되더라도 클라이언트 업데이트 필요가 없도록 변경함.",
+      ],
     },
     enum: {
-      title: "",
-      content: "",
-      problem: [""],
-      solution: [""],
+      title: "여러곳에서 사용되는 고정 데이터를 일괄적으로 적용하고자 함",
+      content: "ENUM을 사용",
+      problem: [
+        "여러 코드에서 사용되는 데이터를 하드코딩 대신 일괄적으로 적용하고자 함.",
+      ],
+      solution: [
+        "enum을 이용하여 데이터를 일괄적으로 적용하여 만약 변경이 필요할 경우 enum에 있는 해당 데이터만 변경하도록 적용.",
+      ],
     },
   },
   backend: {

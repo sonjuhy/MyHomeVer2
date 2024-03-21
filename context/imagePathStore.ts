@@ -28,14 +28,14 @@ const imagePathStore: { [key: string]: any } = {
       path: [],
     },
     fragment: {
-      len: 0,
-      title: [],
-      path: [],
+      len: 2,
+      title: ["MainActivity", "LightActivity"],
+      path: ["android_main.png", "android_light.png"],
     },
     component: {
-      len: 0,
-      title: [],
-      path: [],
+      len: 1,
+      title: ["MainActivity"],
+      path: ["android_main.png"],
     },
     thumbnail: {
       len: 0,
@@ -43,9 +43,9 @@ const imagePathStore: { [key: string]: any } = {
       path: [],
     },
     mvvm: {
-      len: 0,
-      title: [],
-      path: [],
+      len: 1,
+      title: ["MVVM Pattern"],
+      path: ["mvvm.png"],
     },
     defaultInfo: {
       len: 0,

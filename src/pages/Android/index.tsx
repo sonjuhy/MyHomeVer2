@@ -156,7 +156,7 @@ export default function Home() {
             fontSize={fontSize * 2}
             fontWeight={"bolder"}
           >
-            feature
+            update
           </Typography>
           <Grid container style={{ marginBottom: "1rem", marginTop: "1rem" }}>
             <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -175,16 +175,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Can't control while connecting to the server
+                SDK Update
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="origin"
-                  codeType="cpp"
+                  name="sdk"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -200,16 +200,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Move the connection to MQTT server function to Interrupt
+                Change BroadCast Range
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="connect"
-                  codeType="cpp"
+                  name="broadcast"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -225,16 +225,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Change Interrupt Feature
+                Change HTTP Library
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="control"
-                  codeType="cpp"
+                  name="retrofit2"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -258,7 +258,7 @@ export default function Home() {
             fontSize={fontSize * 2}
             fontWeight={"bolder"}
           >
-            feature
+            UI
           </Typography>
           <Grid container style={{ marginBottom: "1rem", marginTop: "1rem" }}>
             <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -277,16 +277,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Can't control while connecting to the server
+                Change to Fragment
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="origin"
-                  codeType="cpp"
+                  name="fragment"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -302,16 +302,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Move the connection to MQTT server function to Interrupt
+                Component Size Up
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="connect"
-                  codeType="cpp"
+                  name="component"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -327,16 +327,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Change Interrupt Feature
+                ADD Thumbnail Feature
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="control"
-                  codeType="cpp"
+                  name="thumbnail"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -360,7 +360,7 @@ export default function Home() {
             fontSize={fontSize * 2}
             fontWeight={"bolder"}
           >
-            feature
+            maintenance
           </Typography>
           <Grid container style={{ marginBottom: "1rem", marginTop: "1rem" }}>
             <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -379,16 +379,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Can't control while connecting to the server
+                Apply Design Pattern
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="origin"
-                  codeType="cpp"
+                  name="mvvm"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -404,16 +404,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Move the connection to MQTT server function to Interrupt
+                Change how to manage Default Info
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="connect"
-                  codeType="cpp"
+                  name="defaultInfo"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
@@ -429,16 +429,16 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Change Interrupt Feature
+                Apply Enum
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>
               <TimelineOppositeContent>
                 <CustomTimeLineContent
-                  name="control"
-                  codeType="cpp"
+                  name="enum"
+                  codeType="java"
                   setModalData={setModalData}
-                  part="iot"
+                  part="android"
                   handleStatus={controlModalVisible}
                 />
               </TimelineOppositeContent>
