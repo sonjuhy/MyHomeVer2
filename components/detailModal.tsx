@@ -88,7 +88,10 @@ export default function Detail({
           <IconButton aria-label="close" onClick={closeImageModal}>
             <CloseIcon />
           </IconButton>
-          <img src={`${prefix}/image/image/${imageName}`} />
+          <img
+            src={`${prefix}/image/image/${imageName}`}
+            style={{ maxHeight: "80vh", maxWidth: "80vw" }}
+          />
         </Box>
       </Modal>
       <Modal

@@ -147,7 +147,7 @@ export default function Home() {
             fontSize={fontSize * 2}
             fontWeight={"bolder"}
           >
-            feature
+            stability
           </Typography>
           <Grid container style={{ marginBottom: "1rem", marginTop: "1rem" }}>
             <Grid item xs={6} sm={6} md={6} lg={6}>

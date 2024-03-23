@@ -38,9 +38,9 @@ const imagePathStore: { [key: string]: any } = {
       path: ["android_main.png"],
     },
     thumbnail: {
-      len: 0,
-      title: [],
-      path: [],
+      len: 1,
+      title: ["Thumbnail"],
+      path: ["thumbnail.jpg"],
     },
     mvvm: {
       len: 1,

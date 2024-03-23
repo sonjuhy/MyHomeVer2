@@ -13,24 +13,68 @@ const codeStore: { [key: string]: any } = {
       code: [],
     },
     sdk: {
-      len: 0,
-      title: [],
-      code: [],
+      len: 1,
+      title: ["Before & After"],
+      code: [
+        `// Before
+      android {
+        compileSdkVersion 32
+        defaultConfig {
+            applicationId "com.example.sonjunhyeok.myhome"
+            minSdkVersion 24
+            targetSdkVersion 32
+    
+            versionCode 1
+            versionName "1.0"
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        }
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+        }
+    }
+
+// After
+android {
+    compileSdkVersion 34
+    defaultConfig {
+        applicationId "com.example.sonjunhyeok.myhome"
+        minSdkVersion 33
+        targetSdkVersion 34
+
+        versionCode 2
+        versionName "2.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}`,
+      ],
     },
     broadcast: {
-      len: 2,
-      title: ["Before(Global Broadcast)", "After(Local Broadcast)"],
+      len: 1,
+      title: ["Before(Global Broadcast) & After(Local Broadcast)"],
       code: [
-        `BroadcastReceiver broadcastReceiver;
-broadcastReceiver = new BroadcastReceiverForMainActivity();`,
-        ` LocalBroadcastManager.getInstance(this).registerReceiver(LightInfoBroadcast, filter);`,
+        `// Before
+BroadcastReceiver broadcastReceiver;
+broadcastReceiver = new BroadcastReceiverForMainActivity();
+
+// After
+LocalBroadcastManager.getInstance(this).registerReceiver(LightInfoBroadcast, filter);`,
       ],
     },
     retrofit2: {
       len: 2,
-      title: ["Before(AsyncTask)", "After(Retrofit2)"],
+      title: ["Before(AsyncTask) & After(Retrofit2)"],
       code: [
-        `public class Network extends AsyncTask<String, Void, String> {
+        `// Before
+        public class Network extends AsyncTask<String, Void, String> {
         private HttpURLConnection httpURLConnection = null;
         private OutputStream outputStream = null;
         private String data = null;
@@ -168,143 +212,154 @@ broadcastReceiver = new BroadcastReceiverForMainActivity();`,
             }
         }
         /*.....*/
-    }`,
-        `
-public class LoadingAuthAdapter {
-    private final static String baseURL = BuildConfig.SERVER_ADDRESS;
-    private static int progressValue = 0;
-    private int MAINACTIVITY_CODE = 100;
-    private int LOGINACTIVITY_CODE = 200;
-
-    private AuthService service;
-
-    private Retrofit retrofit;
-
-    public LoadingAuthAdapter(){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        service = retrofit.create(AuthService.class);
     }
 
-    public void loginWithAuto(Context loadingActivityContext, SharedPreferences sp, String id, String pw, boolean weatherLoading, ProgressBar bar, TextView textView){
-        UserDto tmpDto = new UserDto(id, pw);
-        System.out.println("LoadingAuthAdapter AutoLoading tmpDto : " + tmpDto);
-
-        new Thread(()->{
-            Call<String> callUserDto = service.signIn(tmpDto);
-            try {
-                Response<String> callUserResponse = callUserDto.execute();
-                if(callUserResponse.isSuccessful()){
-                    String callUserString = callUserResponse.body();
-                    Log.i("LoadingAuthAdapter","responsebody : " + callUserString);
-
-                    JsonParser parser = new JsonParser();
-                    JsonElement element = parser.parse(callUserString);
-                    JsonObject object = element.getAsJsonObject();
-                    String strAccess = object.get("accessToken").getAsString();
-                    String strRefresh = object.get("refreshToken").getAsString();
-
-
-                    Intent intent = new Intent(loadingActivityContext, MainForceActivity.class);
-
-                    USER user = bean.getUser();
-                    user.setAccessToken(strAccess);
-                    user.setRefreshToken(strRefresh);
-
-                    Call<UserDto> callUserDTO = service.getUserInfo(strAccess);
-                    Response<UserDto> callUserResult = callUserDTO.execute();
-                    if(callUserResult.isSuccessful()){
-                        UserDto userDto = callUserResult.body();
-                        if(userDto != null){
-                            if(userDto.getName() != null) {
-                                user.setName(userDto.getName());
-                                if(userDto.getId() != null) user.setID(userDto.getId());
-
-                                boolean mustLoading = true;
-
-                                // light loading
-                                changeTextView(textView, "IoT 서비스 로딩 중...");
-                                MainLightAdapter lightAdapter = new MainLightAdapter();
-                                boolean lightResult = lightAdapter.loadingLightItemsSync();
-                                SharedPreferences sharedPreferences = loadingActivityContext.getSharedPreferences("roomMark",MODE_PRIVATE);
-                                ArrayList<String> markRooms = markRoomJSONParsing(sharedPreferences);
-                                bean.setMarkRoomList(markRooms);
-
-                                changeProgressBar(bar, ++progressValue);
-                                if(lightResult){
-                                    changeTextView(textView, "IoT 서비스 로딩 완료");
-                                }
-                                else{
-                                    changeTextView(textView, "IoT 서비스 로딩 실패");
-                                    mustLoading = false;
-                                }
-                                Log.i("LoadingAuthAdapter", "light list size : "+bean.getLightListItems().size());
-
-                                if(weatherLoading) { // weather loading
-                                    changeTextView(textView, "날씨 로딩 중...");
-                                    MainWeatherAdapter weatherAdapter = new MainWeatherAdapter();
-                                    boolean weatherResult = weatherAdapter.setLoadingWeatherInfoSync(91,76);
+    // After
+    public class LoadingAuthAdapter {
+        private final static String baseURL = BuildConfig.SERVER_ADDRESS;
+        private static int progressValue = 0;
+        private int MAINACTIVITY_CODE = 100;
+        private int LOGINACTIVITY_CODE = 200;
+    
+        private AuthService service;
+    
+        private Retrofit retrofit;
+    
+        public LoadingAuthAdapter(){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(baseURL)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            service = retrofit.create(AuthService.class);
+        }
+    
+        public void loginWithAuto(Context loadingActivityContext, SharedPreferences sp, String id, String pw, boolean weatherLoading, ProgressBar bar, TextView textView){
+            UserDto tmpDto = new UserDto(id, pw);
+            System.out.println("LoadingAuthAdapter AutoLoading tmpDto : " + tmpDto);
+    
+            new Thread(()->{
+                Call<String> callUserDto = service.signIn(tmpDto);
+                try {
+                    Response<String> callUserResponse = callUserDto.execute();
+                    if(callUserResponse.isSuccessful()){
+                        String callUserString = callUserResponse.body();
+                        Log.i("LoadingAuthAdapter","responsebody : " + callUserString);
+    
+                        JsonParser parser = new JsonParser();
+                        JsonElement element = parser.parse(callUserString);
+                        JsonObject object = element.getAsJsonObject();
+                        String strAccess = object.get("accessToken").getAsString();
+                        String strRefresh = object.get("refreshToken").getAsString();
+    
+    
+                        Intent intent = new Intent(loadingActivityContext, MainForceActivity.class);
+    
+                        USER user = bean.getUser();
+                        user.setAccessToken(strAccess);
+                        user.setRefreshToken(strRefresh);
+    
+                        Call<UserDto> callUserDTO = service.getUserInfo(strAccess);
+                        Response<UserDto> callUserResult = callUserDTO.execute();
+                        if(callUserResult.isSuccessful()){
+                            UserDto userDto = callUserResult.body();
+                            if(userDto != null){
+                                if(userDto.getName() != null) {
+                                    user.setName(userDto.getName());
+                                    if(userDto.getId() != null) user.setID(userDto.getId());
+    
+                                    boolean mustLoading = true;
+    
+                                    // light loading
+                                    changeTextView(textView, "IoT 서비스 로딩 중...");
+                                    MainLightAdapter lightAdapter = new MainLightAdapter();
+                                    boolean lightResult = lightAdapter.loadingLightItemsSync();
+                                    SharedPreferences sharedPreferences = loadingActivityContext.getSharedPreferences("roomMark",MODE_PRIVATE);
+                                    ArrayList<String> markRooms = markRoomJSONParsing(sharedPreferences);
+                                    bean.setMarkRoomList(markRooms);
+    
                                     changeProgressBar(bar, ++progressValue);
-                                    if(weatherResult){
-                                        changeTextView(textView, "날씨 로딩 완료");
+                                    if(lightResult){
+                                        changeTextView(textView, "IoT 서비스 로딩 완료");
                                     }
                                     else{
-                                        changeTextView(textView, "날씨 로딩 실패");
+                                        changeTextView(textView, "IoT 서비스 로딩 실패");
+                                        mustLoading = false;
                                     }
-                                }
-                                else{
+                                    Log.i("LoadingAuthAdapter", "light list size : "+bean.getLightListItems().size());
+    
+                                    if(weatherLoading) { // weather loading
+                                        changeTextView(textView, "날씨 로딩 중...");
+                                        MainWeatherAdapter weatherAdapter = new MainWeatherAdapter();
+                                        boolean weatherResult = weatherAdapter.setLoadingWeatherInfoSync(91,76);
+                                        changeProgressBar(bar, ++progressValue);
+                                        if(weatherResult){
+                                            changeTextView(textView, "날씨 로딩 완료");
+                                        }
+                                        else{
+                                            changeTextView(textView, "날씨 로딩 실패");
+                                        }
+                                    }
+                                    else{
+                                        changeProgressBar(bar, ++progressValue);
+                                    }
+                                    intent.putExtra("WeatherLoading", weatherLoading);
+    
+                                    // notice loading
+                                    changeTextView(textView, "공지 로딩 중...");
+                                    LoadingNoticeAdapter noticeAdapter = new LoadingNoticeAdapter();
+                                    boolean noticeResult = noticeAdapter.getNoticeListInfoSync();
+                                    if(noticeResult){
+                                        changeTextView(textView, "공지 로딩 완료");
+                                    }
+                                    else{
+                                        changeTextView(textView, "공지 로딩 실패");
+                                        mustLoading = false;
+                                    }
                                     changeProgressBar(bar, ++progressValue);
+    
+    
+                                    // cloud loading
+                                    changeTextView(textView, "클라우드 로딩 중...");
+                                    CloudServiceAdapter cloudServiceAdapter = new CloudServiceAdapter();
+                                    boolean cloudResult = cloudServiceAdapter.getCloudDefaultPathSync();
+                                    if(cloudResult){
+                                        changeTextView(textView, "클라우드 로딩 완료");
+                                    }
+                                    else{
+                                        changeTextView(textView, "클라우드 로딩 실패");
+                                        mustLoading = false;
+                                    }
+                                    changeProgressBar(bar, ++progressValue);
+    
+    
+                                    if(mustLoading) ((LoadingActivity) loadingActivityContext).startLoading(intent);
+                                    else throw new IOException();
+    
                                 }
-                                intent.putExtra("WeatherLoading", weatherLoading);
-
-                                // notice loading
-                                changeTextView(textView, "공지 로딩 중...");
-                                LoadingNoticeAdapter noticeAdapter = new LoadingNoticeAdapter();
-                                boolean noticeResult = noticeAdapter.getNoticeListInfoSync();
-                                if(noticeResult){
-                                    changeTextView(textView, "공지 로딩 완료");
-                                }
-                                else{
-                                    changeTextView(textView, "공지 로딩 실패");
-                                    mustLoading = false;
-                                }
-                                changeProgressBar(bar, ++progressValue);
-
-
-                                // cloud loading
-                                changeTextView(textView, "클라우드 로딩 중...");
-                                CloudServiceAdapter cloudServiceAdapter = new CloudServiceAdapter();
-                                boolean cloudResult = cloudServiceAdapter.getCloudDefaultPathSync();
-                                if(cloudResult){
-                                    changeTextView(textView, "클라우드 로딩 완료");
-                                }
-                                else{
-                                    changeTextView(textView, "클라우드 로딩 실패");
-                                    mustLoading = false;
-                                }
-                                changeProgressBar(bar, ++progressValue);
-
-
-                                if(mustLoading) ((LoadingActivity) loadingActivityContext).startLoading(intent);
-                                else throw new IOException();
-
+    
                             }
-
+                        }
+                        else{
+                            SharedPreferences.Editor autoLoginDelete = sp.edit();
+                            autoLoginDelete.clear();
+                            autoLoginDelete.apply();
+                            Intent loginIntent = new Intent(loadingActivityContext, LoginActivity.class);
+                            loginIntent.putExtra("factor","autoFailed");
+                            ((LoadingActivity) loadingActivityContext).startLoading(loginIntent);
                         }
                     }
                     else{
+                        showToast(loadingActivityContext,"서버에서 오류가 발생했습니다.");
                         SharedPreferences.Editor autoLoginDelete = sp.edit();
                         autoLoginDelete.clear();
                         autoLoginDelete.apply();
-                        Intent loginIntent = new Intent(loadingActivityContext, LoginActivity.class);
-                        loginIntent.putExtra("factor","autoFailed");
-                        ((LoadingActivity) loadingActivityContext).startLoading(loginIntent);
+                        Intent intent = new Intent(loadingActivityContext, LoginActivity.class);
+                        intent.putExtra("factor","autoFailed");
+                        ((LoadingActivity) loadingActivityContext).startLoading(intent);
                     }
-                }
-                else{
+                } catch (IOException e) {
+                    e.printStackTrace();
                     showToast(loadingActivityContext,"서버에서 오류가 발생했습니다.");
                     SharedPreferences.Editor autoLoginDelete = sp.edit();
                     autoLoginDelete.clear();
@@ -313,44 +368,34 @@ public class LoadingAuthAdapter {
                     intent.putExtra("factor","autoFailed");
                     ((LoadingActivity) loadingActivityContext).startLoading(intent);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                showToast(loadingActivityContext,"서버에서 오류가 발생했습니다.");
-                SharedPreferences.Editor autoLoginDelete = sp.edit();
-                autoLoginDelete.clear();
-                autoLoginDelete.apply();
-                Intent intent = new Intent(loadingActivityContext, LoginActivity.class);
-                intent.putExtra("factor","autoFailed");
-                ((LoadingActivity) loadingActivityContext).startLoading(intent);
-            }
-        }).start();
-    }
-    private ArrayList<String> markRoomJSONParsing(SharedPreferences sp){
-        String jsonStr = sp.getString("roomMark",null);
-        ArrayList<String> roomNames = new ArrayList<>();
-        if(jsonStr != null){
-            try {
-                JSONArray jsonArray = new JSONArray(jsonStr);
-                for(int i=0;i<jsonArray.length();i++){
-                    roomNames.add(jsonArray.optString(i));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            }).start();
         }
-        return roomNames;
-    }
-    public void showToast(Context context, String msg){
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(() -> Toast.makeText(context, msg, Toast.LENGTH_LONG).show());
-    }
-    public void changeTextView(TextView textView, String content){
-        textView.post(() -> textView.setText(content));
-    }
-    public void changeProgressBar(ProgressBar bar, int progressValue){
-        bar.post(() -> bar.setProgress(progressValue));
-    }
-}`,
+        private ArrayList<String> markRoomJSONParsing(SharedPreferences sp){
+            String jsonStr = sp.getString("roomMark",null);
+            ArrayList<String> roomNames = new ArrayList<>();
+            if(jsonStr != null){
+                try {
+                    JSONArray jsonArray = new JSONArray(jsonStr);
+                    for(int i=0;i<jsonArray.length();i++){
+                        roomNames.add(jsonArray.optString(i));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return roomNames;
+        }
+        public void showToast(Context context, String msg){
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(() -> Toast.makeText(context, msg, Toast.LENGTH_LONG).show());
+        }
+        public void changeTextView(TextView textView, String content){
+            textView.post(() -> textView.setText(content));
+        }
+        public void changeProgressBar(ProgressBar bar, int progressValue){
+            bar.post(() -> bar.setProgress(progressValue));
+        }
+    }`,
       ],
     },
     fragment: {
@@ -375,22 +420,25 @@ public class LoadingAuthAdapter {
     },
     defaultInfo: {
       len: 2,
-      title: ["Before(HardCoding)", "After(Retrofit2)"],
+      title: ["Before(HardCoding) & After(DB)"],
       code: [
-        `path_private_trash_can = "/home/disk1/home/private/User_"+fnumber+"/휴지통";
-        path_public_trash_can ="/home/disk1/home/public/휴지통";
-        server_folder_private.add("/home/disk1/home/private/User_"+fnumber);
-        server_folder_public.add("/home/disk1/home/public");`,
-        `changeTextView(textView, "클라우드 로딩 중...");
-      CloudServiceAdapter cloudServiceAdapter = new CloudServiceAdapter();
-      boolean cloudResult = cloudServiceAdapter.getCloudDefaultPathSync();
-      if(cloudResult){
-          changeTextView(textView, "클라우드 로딩 완료");
-      }
-      else{
-          changeTextView(textView, "클라우드 로딩 실패");
-          mustLoading = false;
-      }`,
+        `// Before
+path_private_trash_can = "/home/disk1/home/private/User_"+fnumber+"/휴지통";
+path_public_trash_can ="/home/disk1/home/public/휴지통";
+server_folder_private.add("/home/disk1/home/private/User_"+fnumber);
+server_folder_public.add("/home/disk1/home/public");
+        
+// After
+CloudServiceAdapter cloudServiceAdapter = new CloudServiceAdapter();
+boolean cloudResult = cloudServiceAdapter.getCloudDefaultPathSync();
+if(cloudResult){
+    changeTextView(textView, "클라우드 로딩 완료");
+}
+else{
+    changeTextView(textView, "클라우드 로딩 실패");
+    mustLoading = false;
+}
+        `,
       ],
     },
     enum: {
