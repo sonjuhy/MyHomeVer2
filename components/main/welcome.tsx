@@ -13,13 +13,9 @@ const slideRightAnimation = keyframes`
     opacity: 1;
   }
 `;
-
-// display: flex;
-// justify-content: center;
-// align-items: center;
 const WelcomeSection = styled.div`
-  margin-top: 30vh;
-  height: 100vh;
+  margin-top: 15vh;
+  height: 90vh;
   text-align: center;
   font-size: 2rem;
   opacity: 0;
@@ -30,7 +26,8 @@ const WelcomeSection = styled.div`
 export default function Home() {
   const { prefix }: any = useContext(PortfolioContext);
   const smallMode = useAppSelector((state) => state.page.smallMode);
-  console.log(smallMode);
+  const fontSize = smallMode ? 16 : 32;
+
   return (
     <WelcomeSection>
       <Grid
@@ -62,10 +59,32 @@ export default function Home() {
           />
         </Grid>
         <Grid item xs={12} sm={12} md={7} lg={7}>
-          <div style={{ width: "80%", textAlign: "left" }}>
-            <Typography>Welcome!</Typography>
-            <Typography>This is MyHome Project Ver.2 Portfolio</Typography>
-            <Typography>Please scroll down and watch it</Typography>
+          <div style={{ marginLeft: "20%", textAlign: "left" }}>
+            <Typography
+              style={{
+                fontSize: smallMode ? fontSize : fontSize * 1.1,
+                fontWeight: "bold",
+              }}
+            >
+              Welcome!
+            </Typography>
+            <Typography
+              style={{
+                fontSize: smallMode ? fontSize : fontSize * 0.9,
+                marginBottom: "0.5rem",
+              }}
+            >
+              This is{" "}
+              <span style={{ color: "#5cd8e1" }}>MyHome Project Ver.2 </span>
+              Portfolio
+            </Typography>
+            <Typography
+              style={{
+                fontSize: smallMode ? fontSize * 0.8 : fontSize * 0.7,
+              }}
+            >
+              ※ Please scroll down and watch it
+            </Typography>
           </div>
         </Grid>
       </Grid>
