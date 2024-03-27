@@ -15,7 +15,6 @@ const slideRightAnimation = keyframes`
 `;
 const WelcomeSection = styled.div`
   margin-top: 15vh;
-  height: 90vh;
   text-align: center;
   font-size: 2rem;
   opacity: 0;
@@ -29,7 +28,7 @@ export default function Home() {
   const fontSize = smallMode ? 16 : 32;
 
   return (
-    <WelcomeSection>
+    <WelcomeSection style={{ height: smallMode ? "60vh" : "90vh" }}>
       <Grid
         container
         direction={"row-reverse"}

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import { useAppSelector } from "../context/redux/hooks";
 import explainStore from "../context/explainStore";
 
@@ -17,6 +17,14 @@ interface customTimeLineContentProps {
   ) => void;
   handleStatus: () => void;
 }
+const Explain = styled("div")(({ theme }) => ({
+  transition: "all 0.5s",
+  borderRadius: "0.5rem",
+  padding: "0.2rem",
+  "&:hover": {
+    backgroundColor: theme.palette.mode === "dark" ? "#111" : "#f4f5ff",
+  },
+}));
 export default function TimeLineContent({
   name,
   codeType,
@@ -33,7 +41,7 @@ export default function TimeLineContent({
   const solution: string[] = explainStore[part][name]["solution"];
 
   return (
-    <div>
+    <Explain>
       <div
         style={{ cursor: "pointer" }}
         onClick={() => {
@@ -48,6 +56,6 @@ export default function TimeLineContent({
           <Typography fontSize={fontSize}>{content}</Typography>
         </Box>
       </div>
-    </div>
+    </Explain>
   );
 }

@@ -166,7 +166,7 @@ export default function Home() {
                 <TimelineConnector />
               </TimelineSeparator>
               <TimelineContent fontSize={fontSize} fontWeight={"bolder"}>
-                Can't control while connecting to the server
+                Can t control while connecting to the server
               </TimelineContent>
             </TimelineItem>
             <TimelineItem>

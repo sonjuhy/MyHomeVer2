@@ -26,6 +26,11 @@ body {
     rgb(var(--background-start-rgb)); */
 }
 
+.customSwiper {
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

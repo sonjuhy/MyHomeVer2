@@ -1,12 +1,12 @@
-'use client';
-import { Roboto } from 'next/font/google';
-import { createTheme } from '@mui/material/styles';
-import { useMemo } from 'react';
+"use client";
+import { Roboto } from "next/font/google";
+import { createTheme } from "@mui/material/styles";
+import { useMemo } from "react";
 
 const roboto = Roboto({
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-  display: 'swap',
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
 });
 
 declare module "@mui/material" {
@@ -18,33 +18,34 @@ declare module "@mui/material" {
   }
 }
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Palette {
-    wnb: Palette['primary'];
+    wnb: Palette["primary"];
   }
 
   interface PaletteOptions {
-    wnb?: PaletteOptions['primary'];
+    // wnb?: PaletteOptions["primary"];
+    wnb?: Partial<PaletteOptions["primary"]>;
   }
 }
 
-const theme = (prefersDarkMode:any) => {
+const useTheme = (prefersDarkMode: any) => {
   return useMemo(() => {
     return createTheme({
       typography: {
         fontFamily: roboto.style.fontFamily,
       },
       palette: {
-        mode: prefersDarkMode ? 'dark' : 'light',
+        mode: prefersDarkMode ? "dark" : "light",
         wnb: {
-          main: '#ffffff',
-          light: '#E9DB5D',
-          dark: '#A29415',
-          contrastText: '#000000', 
+          main: "#ffffff",
+          light: "#E9DB5D",
+          dark: "#A29415",
+          contrastText: "#000000",
         } as any,
       },
     });
   }, [prefersDarkMode]);
 };
 
-export default theme;
+export default useTheme;

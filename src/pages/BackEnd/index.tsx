@@ -79,7 +79,6 @@ import router from "next/router";
  * Scroll down(time sequence)
  * if clieck image, popup effect
  */
-
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -755,4 +754,7 @@ export default function Home() {
       </Stack>
     </div>
   );
+}
+function useStyles() {
+  throw new Error("Function not implemented.");
 }
