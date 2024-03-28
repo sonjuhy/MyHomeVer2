@@ -101,8 +101,8 @@ export default function Home() {
           <img
             src={
               prefersDarkMode
-                ? `${prefix}/image/icon/MyHomeIcon-white.png`
-                : `${prefix}/image/icon/MyHomeIcon.png`
+                ? `${prefix}image/icon/MyHomeIcon-white.png`
+                : `${prefix}image/icon/MyhomeIcon.png`
             }
             width={smallMode ? "75" : "150"}
             height={smallMode ? "75" : "150"}

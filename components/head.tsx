@@ -12,10 +12,13 @@ import MenuItem from "@mui/material/MenuItem";
 
 import MyHomeIcon from "/public/image/icon/MyHomeIcon.png";
 import Image from "next/image";
+import PortfolioContext from "../context/context";
+import Head from "next/head";
 
 const pages = ["about", "BackEnd", "Android", "IoT"];
 
 export default function Header() {
+  const { prefix }: any = React.useContext(PortfolioContext);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -30,6 +33,14 @@ export default function Header() {
 
   return (
     <>
+      <Head>
+        <title>Sonjuhy Portfolio</title>
+        <link rel="icon" href={`${prefix}/favicon.ico`} />
+        <meta property="og:image" content={`${prefix}/profile.png`} />
+        <meta property="og:title" content={"Sonjuhy Portfolio"} />
+        <meta property="og:description" content="Development History Store" />
+        <meta property="og:type" content="website" />
+      </Head>
       <AppBar position="fixed" color="wnb" style={{ top: "0", zIndex: "1000" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -45,7 +56,7 @@ export default function Header() {
                 variant="h6"
                 noWrap
                 component="a"
-                href="/"
+                href={"https://sonjuhy.github.io/MyHomeVer2"}
                 sx={{
                   mr: 2,
                   display: { xs: "none", md: "flex" },
@@ -99,7 +110,7 @@ export default function Header() {
                       textAlign="center"
                       noWrap
                       component="a"
-                      href={`/${page}`}
+                      href={`${prefix}${page}`}
                       sx={{ color: "inherit" }}
                     >
                       {page}
@@ -143,7 +154,7 @@ export default function Header() {
                   key={page}
                   onClick={handleCloseNavMenu}
                   component="a"
-                  href={`/${page}`}
+                  href={`${prefix}${page}`}
                   sx={{ my: 2, color: "inherit", display: "block" }}
                 >
                   {page}

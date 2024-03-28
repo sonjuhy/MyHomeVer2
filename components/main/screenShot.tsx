@@ -1,11 +1,4 @@
-import {
-  Box,
-  Divider,
-  Grid,
-  IconButton,
-  Modal,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import PortfolioContext from "../../context/context";
@@ -17,23 +10,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/effect-cards";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 // import required modules
-import { EffectCards, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 
-const CustomSwiperSlide = styled(SwiperSlide)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  font-size: 22px;
-  font-weight: bold;
-  @media (prefers-color-scheme: dark) {
-    background-color: #000000; /* Dark mode background color */
-  }
-  @media (prefers-color-scheme: light) {
-    background-color: #f4f5ff; /* Dark mode background color */
-  }
+const MainSwiper = styled(Swiper)`
+  height: 100%;
+  width: 100%;
+`;
+const MainSlider = styled(SwiperSlide)`
+
+display: "flex",
+justify-content: "center",
+align-items: "center",
 `;
 const SlideImg = styled.img`
   object-fit: contain;
@@ -64,17 +54,29 @@ const PageFrame = styled.div`
 `;
 const SlideCard = (url: string, name: string, smallMode: boolean) => {
   const { prefix }: any = useContext(PortfolioContext);
-
   return (
-    <Box sx={{ padding: smallMode ? "0.2rem" : "1rem", height: "100%" }}>
-      <Box sx={{ height: "90%" }}>
+    <Box
+      sx={{
+        padding: smallMode ? "0.2rem" : "1rem",
+        height: "100%",
+        marginBottom: smallMode ? "2rem" : "0",
+      }}
+    >
+      <Box
+        sx={{
+          height: "90%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <SlideImg
           alt="Slider image"
           src={`${prefix}/image/image/${url}`}
           style={{ padding: smallMode ? "0" : "1rem" }}
         />
       </Box>
-      <Typography style={{ margin: smallMode ? "0rem" : "1rem" }}>
+      <Typography style={{ margin: smallMode ? "0.2rem" : "1rem" }}>
         {name}
       </Typography>
     </Box>
@@ -170,50 +172,42 @@ export default function Home() {
             </Typography>
           </TitleSection>
         </Box>
-        <Swiper
-          effect={"cards"}
-          grabCursor={true}
-          modules={[EffectCards]}
-          className="mySwiper"
+        <MainSwiper
+          loop={true}
+          spaceBetween={10}
+          centeredSlides={true}
+          navigation={smallMode ? false : true}
+          pagination={smallMode ? true : false}
+          modules={[Pagination, Navigation]}
           style={{
-            width: smallMode ? "60vw" : "60vw",
-            height: smallMode ? "25vh" : "55vh",
+            width: smallMode ? "60%" : "60vw",
+            height: smallMode ? "25%" : "55vh",
             marginTop: smallMode ? "5vh" : "5vh",
             marginBottom: smallMode ? "3vh" : "5vh",
           }}
         >
-          <CustomSwiperSlide
-            onClick={() => changeImageName("web/MyHome_Main.PNG")}
-          >
+          <MainSlider onClick={() => changeImageName("web/MyHome_Main.PNG")}>
             {SlideCard("web/MyHome_Main.PNG", "Web Main", smallMode)}
-          </CustomSwiperSlide>
-          <CustomSwiperSlide
-            onClick={() => changeImageName("web/MyHome_Main2.PNG")}
-          >
+          </MainSlider>
+          <SwiperSlide onClick={() => changeImageName("web/MyHome_Main2.PNG")}>
             {SlideCard("web/MyHome_Main2.PNG", "Web Main2", smallMode)}
-          </CustomSwiperSlide>
-          <CustomSwiperSlide
-            onClick={() => changeImageName("web/MyHome_Cloud.PNG")}
-          >
+          </SwiperSlide>
+          <SwiperSlide onClick={() => changeImageName("web/MyHome_Cloud.PNG")}>
             {SlideCard("web/MyHome_Cloud.PNG", "Web Cloud", smallMode)}
-          </CustomSwiperSlide>
-          <CustomSwiperSlide
-            onClick={() => changeImageName("android/main.png")}
-          >
+          </SwiperSlide>
+          <SwiperSlide onClick={() => changeImageName("android/main.png")}>
             {SlideCard("android/main.png", "Android Main", smallMode)}
-          </CustomSwiperSlide>
-          <CustomSwiperSlide
-            onClick={() => changeImageName("android/light.png")}
-          >
+          </SwiperSlide>
+          <SwiperSlide onClick={() => changeImageName("android/light.png")}>
             {SlideCard("android/light.png", "Android Light", smallMode)}
-          </CustomSwiperSlide>
-          <CustomSwiperSlide onClick={() => changeImageName("log_page.png")}>
+          </SwiperSlide>
+          <SwiperSlide onClick={() => changeImageName("log_page.png")}>
             {SlideCard("log_page.png", "Log Main", smallMode)}
-          </CustomSwiperSlide>
-          <CustomSwiperSlide onClick={() => changeImageName("log_detail.png")}>
+          </SwiperSlide>
+          <SwiperSlide onClick={() => changeImageName("log_detail.png")}>
             {SlideCard("log_detail.png", "Log Detail", smallMode)}
-          </CustomSwiperSlide>
-        </Swiper>
+          </SwiperSlide>
+        </MainSwiper>
       </Box>
     </PageFrame>
   );
